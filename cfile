@@ -94,20 +94,20 @@ config_dir=$HOME/.config
     git_init_dir[1,0]=${git_dir[1]}/config
 
     git_init_dir[1,1]=${git_dir[1]}/dev
-    git_init_dir[1,2]=${git_dir[1]}/bkp.sh
-    git_init_dir[1,3]=${git_dir[1]}/cvt.sh
-    git_init_dir[1,4]=${git_dir[1]}/ecl.sh
-    git_init_dir[1,5]=${git_dir[1]}/emutt.sh
-    git_init_dir[1,6]=${git_dir[1]}/pkg.sh
-    git_init_dir[1,7]=${git_dir[1]}/pm.sh
-    git_init_dir[1,8]=${git_dir[1]}/sw.sh
-    git_init_dir[1,9]=${git_dir[1]}/sync.sh
-    git_init_dir[1,10]=${git_dir[1]}/trsl.sh
-    git_init_dir[1,11]=${git_dir[1]}/web.sh
-    git_init_dir[1,12]=${git_dir[1]}/essence.vim
-    git_init_dir[1,13]=${git_dir[1]}/mpc.vim
-    git_init_dir[1,14]=${git_dir[1]}/org.vim
-    git_init_dir[1,15]=${git_dir[1]}/vimtex-colors.vim
+    git_init_dir[1,2]=${git_dir[1]}/sh/bkp.sh
+    git_init_dir[1,3]=${git_dir[1]}/sh/cvt.sh
+    git_init_dir[1,4]=${git_dir[1]}/sh/ecl.sh
+    git_init_dir[1,5]=${git_dir[1]}/sh/emutt.sh
+    git_init_dir[1,6]=${git_dir[1]}/sh/pkg.sh
+    git_init_dir[1,7]=${git_dir[1]}/sh/pm.sh
+    git_init_dir[1,8]=${git_dir[1]}/sh/sw.sh
+    git_init_dir[1,9]=${git_dir[1]}/sh/sync.sh
+    git_init_dir[1,10]=${git_dir[1]}/sh/trsl.sh
+    git_init_dir[1,11]=${git_dir[1]}/sh/web.sh
+    git_init_dir[1,12]=${git_dir[1]}/vim/essence.vim
+    git_init_dir[1,13]=${git_dir[1]}/vim/mpc.vim
+    git_init_dir[1,14]=${git_dir[1]}/vim/org.vim
+    git_init_dir[1,15]=${git_dir[1]}/vim/vimtex-colors.vim
 
     git_init_dir[1,16]=${git_dir[1]}/doc
     git_init_dir[1,17]=${git_dir[1]}/math
@@ -180,7 +180,7 @@ config_dir=$HOME/.config
     git_commit[1,17]="..."
 
 ## array sizes
-    Ngit_dir[0]=1
+    Ngit_dir[0]=0
     Ngit_dir[1]=17
 
 ## local-git pairs
@@ -189,59 +189,59 @@ config_dir=$HOME/.config
     alias_git[0,0]="backup_codeberg_git"
     
     source_dir_git[1,0]=$basedir/nerd/dev/sh/bkp.sh/
-    target_dir_git[1,0]=${git_dir[1]}/bkp.sh/
+    target_dir_git[1,0]=${git_dir[1]}/sh/bkp.sh/
     alias_git[1,0]="bkp_github_git"
 
     source_dir_git[1,1]=$basedir/nerd/dev/sh/cvt.sh/
-    target_dir_git[1,1]=${git_dir[1]}/cvt.sh/
+    target_dir_git[1,1]=${git_dir[1]}/sh/cvt.sh/
     alias_git[1,1]="cvt_github_git"
 
     source_dir_git[1,2]=$basedir/nerd/dev/sh/ecl.sh/
-    target_dir_git[1,2]=${git_dir[1]}/ecl.sh/
+    target_dir_git[1,2]=${git_dir[1]}/sh/ecl.sh/
     alias_git[1,2]="ecl_github_git"
 
     source_dir_git[1,3]=$basedir/nerd/dev/sh/emutt.sh/
-    target_dir_git[1,3]=${git_dir[1]}/emutt.sh/
+    target_dir_git[1,3]=${git_dir[1]}/sh/emutt.sh/
     alias_git[1,3]="emutt_github_git"
  
     source_dir_git[1,4]=$basedir/nerd/dev/sh/pkg.sh/
-    target_dir_git[1,4]=${git_dir[1]}/pkg.sh/
+    target_dir_git[1,4]=${git_dir[1]}/sh/pkg.sh/
     alias_git[1,4]="pkg_github_git"
 
     source_dir_git[1,5]=$basedir/nerd/dev/sh/pm.sh/
-    target_dir_git[1,5]=${git_dir[1]}/pm.sh/
+    target_dir_git[1,5]=${git_dir[1]}/sh/pm.sh/
     alias_git[1,5]="pm_github_git"
 
     source_dir_git[1,6]=$basedir/nerd/dev/sh/sw.sh/
-    target_dir_git[1,6]=${git_dir[1]}/sw.sh/
+    target_dir_git[1,6]=${git_dir[1]}/sh/sw.sh/
     alias_git[1,6]="sw_github_git"
 
     source_dir_git[1,7]=$basedir/nerd/dev/sh/sync.sh/
-    target_dir_git[1,7]=${git_dir[1]}/sync.sh/
+    target_dir_git[1,7]=${git_dir[1]}/sh/sync.sh/
     alias_git[1,7]="sync_github_git"
 
     source_dir_git[1,8]=$basedir/nerd/dev/sh/trsl.sh/
-    target_dir_git[1,8]=${git_dir[1]}/trsl.sh/
+    target_dir_git[1,8]=${git_dir[1]}/sh/trsl.sh/
     alias_git[1,8]="trsl_github_git"
 
     source_dir_git[1,9]=$basedir/nerd/dev/sh/web.sh/
-    target_dir_git[1,9]=${git_dir[1]}/web.sh/
+    target_dir_git[1,9]=${git_dir[1]}/sh/web.sh/
     alias_git[1,9]="web_github_git"
 
     source_dir_git[1,10]=$basedir/nerd/dev/vim/essence.vim/
-    target_dir_git[1,10]=${git_dir[1]}/essence.vim/
+    target_dir_git[1,10]=${git_dir[1]}/vim/essence.vim/
     alias_git[1,10]="essence_github_git"
 
     source_dir_git[1,11]=$basedir/nerd/dev/vim/mpc.vim/
-    target_dir_git[1,11]=${git_dir[1]}/mpc.vim/
+    target_dir_git[1,11]=${git_dir[1]}/vim/mpc.vim/
     alias_git[1,11]="mpc_github_git"
 
     source_dir_git[1,12]=$basedir/nerd/dev/vim/org.vim/
-    target_dir_git[1,12]=${git_dir[1]}/org.vim/
+    target_dir_git[1,12]=${git_dir[1]}/vim/org.vim/
     alias_git[1,12]="org_github_git"
 
     source_dir_git[1,13]=$basedir/nerd/dev/vim/vimtex-colors.vim/
-    target_dir_git[1,13]=${git_dir[1]}/vimtex-colors.vim/
+    target_dir_git[1,13]=${git_dir[1]}/vim/vimtex-colors.vim/
     alias_git[1,13]="vimtex_github_git"
 
     source_dir_git[1,14]=$basedir/config/tex/preamble/

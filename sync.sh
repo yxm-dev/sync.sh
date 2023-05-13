@@ -22,7 +22,7 @@ installdir="$HOME/.config/sync.sh"
     declare -A target_dir_git
     declare -A alias_git
 ## including data
-    source  $installdir/data
+    source  $installdir/cfile
 
 # SYNC
     function sync() {
@@ -166,7 +166,7 @@ installdir="$HOME/.config/sync.sh"
                 sync -g
             elif [[ "$1" == "--push" ]] || [[ "$1" == "-p" ]] && [[ -z "$2" ]]; then
                 for i in ${!git_dir[@]}; do
-                    for (( j=0; j<=${Ngit[$i]}; j++ )); do
+                    for (( j=0; j<=${Ngit_dir[$i]}; j++ )); do
                          sync_push ${git_init_dir[$i,$j]} ${git_commit[$i,$j]} ${git_remote[$i,$j]}  ${git_branch[$i,$j]}
                     done
                 done
