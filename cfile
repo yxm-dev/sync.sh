@@ -4,15 +4,20 @@ basedir=$HOME/files
 config_dir=$HOME/.config
 
 # STANDARD MODE
-
-## FILES
+## INCLUDE FILES
     source_file[0]=$basedir/config/linux/xterm/Xresources
     target_file[0]=$HOME/.Xresources
 
     source_file[1]=$basedir/config/linux/mailcap
     target_file[1]=$HOME/.mailcap
 
-## CONFIG dirs
+    source_file[2]=$basedir/config/linux/xinitrc
+    target_file[2]=$HOME/.xinitrc
+## EXCLUDE FILES
+    exclude_file[0]=""
+
+## INCLUDE DIRS
+### Config
     source_dir[0]=$basedir/config/linux/mutt/
     target_dir[0]=$HOME/.mutt/
     alias_dir[0]="mutt"
@@ -36,8 +41,7 @@ config_dir=$HOME/.config
     source_dir[5]=$basedir/config/vim/
     target_dir[5]=$HOME/.vim/
     alias_dir[5]="vim"
-
-## DEV dirs
+### Dev
     devdir=$HOME/files/nerd/dev
  
     source_dir[6]=$devdir/sh/ecl.sh/
@@ -75,13 +79,16 @@ config_dir=$HOME/.config
     source_dir[14]=$devdir/sh/pkg.sh/
     target_dir[14]=$config_dir/pkg.sh/
     alias_dir[14]="pkg"
-
-## BKP dirs
+### Bkp
     bkpdir=$HOME/bkp/pcloud
 
     source_dir[15]=$basedir/
     target_dir[15]=$bkpdir/files/
     alias_dir[15]="bkp_pcloud"
+## EXCLUDE DIRS
+    
+    exclude_dir[0]=""
+
 
 # GIT MODE
 ## base GIT dirs

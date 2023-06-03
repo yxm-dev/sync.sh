@@ -1,0 +1,3 @@
+#! /bin/bash
+
+echo -e -n "Welcome to the configuration process to \"sync.sh\". \n"
