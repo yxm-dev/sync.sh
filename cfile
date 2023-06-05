@@ -79,12 +79,17 @@ config_dir=$HOME/.config
     source_dir[14]=$devdir/sh/pkg.sh/
     target_dir[14]=$config_dir/pkg.sh/
     alias_dir[14]="pkg"
+
+    source_dir[15]=$devdir/sh/menu.sh/
+    target_dir[15]=$config_dir/menu.sh/
+    alias_dir[15]="menu"
+
 ### Bkp
     bkpdir=$HOME/bkp/pcloud
 
-    source_dir[15]=$basedir/
-    target_dir[15]=$bkpdir/files/
-    alias_dir[15]="bkp_pcloud"
+    source_dir[16]=$basedir/
+    target_dir[16]=$bkpdir/files/
+    alias_dir[16]="bkp_pcloud"
 ## EXCLUDE DIRS
     
     exclude_dir[0]=""
@@ -239,51 +244,55 @@ config_dir=$HOME/.config
     target_dir_git[1,9]=${git_dir[1]}/sh/web.sh/
     alias_git[1,9]="web_github_git"
 
-    source_dir_git[1,10]=$basedir/nerd/dev/vim/essence.vim/
-    target_dir_git[1,10]=${git_dir[1]}/vim/essence.vim/
-    alias_git[1,10]="essence_github_git"
+    source_dir_git[1,10]=$basedir/nerd/dev/sh/menu.sh/
+    target_dir_git[1,10]=${git_dir[1]}/sh/menu.sh/
+    alias_git[1,10]="web_github_git"
 
-    source_dir_git[1,11]=$basedir/nerd/dev/vim/mpc.vim/
-    target_dir_git[1,11]=${git_dir[1]}/vim/mpc.vim/
-    alias_git[1,11]="mpc_github_git"
+    source_dir_git[1,11]=$basedir/nerd/dev/vim/essence.vim/
+    target_dir_git[1,11]=${git_dir[1]}/vim/essence.vim/
+    alias_git[1,11]="essence_github_git"
 
-    source_dir_git[1,12]=$basedir/nerd/dev/vim/org.vim/
-    target_dir_git[1,12]=${git_dir[1]}/vim/org.vim/
-    alias_git[1,12]="org_github_git"
+    source_dir_git[1,12]=$basedir/nerd/dev/vim/mpc.vim/
+    target_dir_git[1,12]=${git_dir[1]}/vim/mpc.vim/
+    alias_git[1,12]="mpc_github_git"
 
-    source_dir_git[1,13]=$basedir/nerd/dev/vim/vimtex-colors.vim/
-    target_dir_git[1,13]=${git_dir[1]}/vim/vimtex-colors.vim/
-    alias_git[1,13]="vimtex_github_git"
+    source_dir_git[1,13]=$basedir/nerd/dev/vim/org.vim/
+    target_dir_git[1,13]=${git_dir[1]}/vim/org.vim/
+    alias_git[1,13]="org_github_git"
 
-    source_dir_git[1,14]=$basedir/config/tex/preamble/
-    target_dir_git[1,14]=${git_dir[1]}/config/tex/
-    alias_git[1,14]="tex_github_git"
+    source_dir_git[1,14]=$basedir/nerd/dev/vim/vimtex-colors.vim/
+    target_dir_git[1,14]=${git_dir[1]}/vim/vimtex-colors.vim/
+    alias_git[1,14]="vimtex_github_git"
 
-    source_dir_git[1,15]=$basedir/config/linux/
-    target_dir_git[1,15]=${git_dir[1]}/config/linux/
-    alias_git[1,15]="linux_github_git"
+    source_dir_git[1,15]=$basedir/config/tex/preamble/
+    target_dir_git[1,15]=${git_dir[1]}/config/tex/
+    alias_git[1,15]="tex_github_git"
 
-    source_dir_git[1,16]=$basedir/config/vim/vimrc
-    target_dir_git[1,16]=${git_dir[1]}/config/vim/vimrc
-    alias_git[1,16]="vimrc_github_git"
+    source_dir_git[1,16]=$basedir/config/linux/
+    target_dir_git[1,16]=${git_dir[1]}/config/linux/
+    alias_git[1,16]="linux_github_git"
 
-    source_dir_git[1,17]=$basedir/config/vim/vimrc_keybind
-    target_dir_git[1,17]=${git_dir[1]}/config/vim/vimrc_keybind
-    alias_git[1,17]="vimrc_keybind_github_git"
+    source_dir_git[1,17]=$basedir/config/vim/vimrc
+    target_dir_git[1,17]=${git_dir[1]}/config/vim/vimrc
+    alias_git[1,17]="vimrc_github_git"
 
-    source_dir_git[1,18]=$basedir/config/vim/vimrc_plugin
-    target_dir_git[1,18]=${git_dir[1]}/config/vim/vimrc_plugin
-    alias_git[1,18]="vimrc_plugin_github_git"
+    source_dir_git[1,18]=$basedir/config/vim/vimrc_keybind
+    target_dir_git[1,18]=${git_dir[1]}/config/vim/vimrc_keybind
+    alias_git[1,18]="vimrc_keybind_github_git"
+
+    source_dir_git[1,19]=$basedir/config/vim/vimrc_plugin
+    target_dir_git[1,19]=${git_dir[1]}/config/vim/vimrc_plugin
+    alias_git[1,19]="vimrc_plugin_github_git"
   
-    source_dir_git[1,19]=$basedir/nerd/doc/
-    target_dir_git[1,19]=${git_dir[1]}/doc/
-    alias_git[1,19]="doc_github_git"
+    source_dir_git[1,20]=$basedir/nerd/doc/
+    target_dir_git[1,20]=${git_dir[1]}/doc/
+    alias_git[1,20]="doc_github_git"
 
-    source_dir_git[1,20]=$basedir/math/pdfs/
-    target_dir_git[1,20]=${git_dir[1]}/math/
-    alias_git[1,20]="pdfs_github_git"
+    source_dir_git[1,21]=$basedir/math/pdfs/
+    target_dir_git[1,21]=${git_dir[1]}/math/
+    alias_git[1,21]="pdfs_github_git"
    
 ## size array
     Ngit_st[0]=0
-    Ngit_st[1]=20
+    Ngit_st[1]=21
 
