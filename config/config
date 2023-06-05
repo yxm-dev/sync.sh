@@ -1,5 +1,5 @@
 #! /bin/bash
 
-source interactive_menu.sh
+source menu.sh
 
 echo -e -n "Welcome to the configuration process to \"sync.sh\". \n"

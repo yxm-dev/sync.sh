@@ -114,16 +114,17 @@ config_dir=$HOME/.config
     git_init_dir[1,7]=${git_dir[1]}/sh/pm.sh
     git_init_dir[1,8]=${git_dir[1]}/sh/sw.sh
     git_init_dir[1,9]=${git_dir[1]}/sh/sync.sh
-    git_init_dir[1,10]=${git_dir[1]}/sh/trsl.sh
-    git_init_dir[1,11]=${git_dir[1]}/sh/web.sh
-    git_init_dir[1,12]=${git_dir[1]}/vim/essence.vim
-    git_init_dir[1,13]=${git_dir[1]}/vim/mpc.vim
-    git_init_dir[1,14]=${git_dir[1]}/vim/org.vim
-    git_init_dir[1,15]=${git_dir[1]}/vim/vimtex-colors.vim
+    git_init_dir[1,10]=${git_dir[1]}/sh/menu.sh
+    git_init_dir[1,11]=${git_dir[1]}/sh/trsl.sh
+    git_init_dir[1,12]=${git_dir[1]}/sh/web.sh
+    git_init_dir[1,13]=${git_dir[1]}/vim/essence.vim
+    git_init_dir[1,14]=${git_dir[1]}/vim/mpc.vim
+    git_init_dir[1,15]=${git_dir[1]}/vim/org.vim
+    git_init_dir[1,16]=${git_dir[1]}/vim/vimtex-colors.vim
 
-    git_init_dir[1,16]=${git_dir[1]}/doc
-    git_init_dir[1,17]=${git_dir[1]}/math
-    git_init_dir[1,18]=${git_dir[1]}/yxm-dev
+    git_init_dir[1,17]=${git_dir[1]}/doc
+    git_init_dir[1,18]=${git_dir[1]}/math
+    git_init_dir[1,19]=${git_dir[1]}/yxm-dev
 
 ## remotes (default is the name of the initialized dirs)
     git_remote[0,0]="backup"
@@ -138,16 +139,17 @@ config_dir=$HOME/.config
     git_remote[1,7]="pm"
     git_remote[1,8]="sw"
     git_remote[1,9]="sync"
-    git_remote[1,10]="trsl"
-    git_remote[1,11]="web"
-    git_remote[1,12]="essence"
-    git_remote[1,13]="mpc"
-    git_remote[1,14]="org"
-    git_remote[1,15]="vimtex"
+    git_remote[1,10]="menu"
+    git_remote[1,11]="trsl"
+    git_remote[1,12]="web"
+    git_remote[1,13]="essence"
+    git_remote[1,14]="mpc"
+    git_remote[1,15]="org"
+    git_remote[1,16]="vimtex"
 
-    git_remote[1,16]="doc"
-    git_remote[1,17]="math"
-    git_remote[1,18]="yxm"
+    git_remote[1,17]="doc"
+    git_remote[1,18]="math"
+    git_remote[1,19]="yxm"
 
 ## branches    
     git_branch[0,0]="master" 
@@ -171,6 +173,7 @@ config_dir=$HOME/.config
     git_branch[1,16]="master"
     git_branch[1,17]="master"
     git_branch[1,18]="master"
+    git_branch[1,19]="master"
 
 ## default commit
     git_commit[0,0]="..."
@@ -194,10 +197,11 @@ config_dir=$HOME/.config
     git_commit[1,16]="..."
     git_commit[1,17]="..."
     git_commit[1,18]="..."
+    git_commit[1,19]="..."
 
 ## array sizes
     Ngit_dir[0]=0
-    Ngit_dir[1]=18
+    Ngit_dir[1]=19
 
 ## local-git pairs
     source_dir_git[0,0]=$basedir/
@@ -246,7 +250,7 @@ config_dir=$HOME/.config
 
     source_dir_git[1,10]=$basedir/nerd/dev/sh/menu.sh/
     target_dir_git[1,10]=${git_dir[1]}/sh/menu.sh/
-    alias_git[1,10]="web_github_git"
+    alias_git[1,10]="menu_github_git"
 
     source_dir_git[1,11]=$basedir/nerd/dev/vim/essence.vim/
     target_dir_git[1,11]=${git_dir[1]}/vim/essence.vim/
