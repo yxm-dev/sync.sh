@@ -1,6 +1,6 @@
 #! /bin/bash
 
-installdir="$HOME/.config/sync.sh"
+install_dir="$HOME/.config/sync.sh"
 
 # DATA
 ## declaring arrays
@@ -22,7 +22,7 @@ installdir="$HOME/.config/sync.sh"
     declare -A target_dir_git
     declare -A alias_git
 ## including data
-    source  $installdir/cfile
+    source  $install_dir/cfile
 ## defining inverse arrays
     declare -A git_remote_name
     for s in ${git_remote[@]}; do

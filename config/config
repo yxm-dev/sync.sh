@@ -1,5 +1,27 @@
 #! /bin/bash
 
-source menu.sh
+install_dir=$HOME/.config/sync.sh
 
-echo -e -n "Welcome to the configuration process to \"sync.sh\". \n"
+source menu.sh
+source yn.sh
+
+    echo -e -n "\nWelcome to the configuration of \"sync.sh\".\n\n"
+    echo "Verifying if there already exists a config file..."
+    if [[ -f $install_dir/cfile ]]; then
+
+
+
+# * verify if there already exists a configuration file
+#   * ask if want to reconfigure
+# * start local-local config
+#   * create array of file sync
+#   * want to split dir sync in small arrays?
+#   * WARNING: if you want to reconfigure it is possible to reconfigure each block. If a single block is created, a complete reconfiguration will be needed.
+#   * create each block
+# * determine the ordering of the syncronization. 
+#   * default: file -> dir
+# * want git mode?
+#   * create array of top dirs
+#   * for each top dir, create array of tuples (git-init dir, branch, commit)
+#   * for each top dir, create array of local-git sync
+#   * create array of git-git sync
