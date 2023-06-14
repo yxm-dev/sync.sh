@@ -90,66 +90,6 @@ install_dir="$HOME/.config/sync.sh"
             echo "Done!"
         }
 ## SYNC Function Propertly
-### local-local sync from aliases
-            for i in ${!alias_dir[@]}; do
-                if [[ "$1" == "${alias_dir[$i]}" ]]; then
-                    sync_core ${source_dir[$i]} ${target_dir[$i]}
-                fi
-            done
-            for i in ${!git_dir[@]}; do
-                 for (( j=0; j<=${Ngit_st[$i]}; j++ )); do
-                    if [[ "$1" ==  "${alias_git[$i,$j]}" ]]; then
-                        sync_dir_file ${source_dir_git[$i,$j]} ${target_dir_git[$i,$j]}
-                    fi
-                done
-            done
-### local-git sync from git initialized dir name 
-            for i in ${!git_dir[@]}; do
-                if ([[ "$1" == "--git" ]] || [[ "$1" == "-g" ]]) && 
-                   ([[ "$2" == "$i" ]] || [[ "$2" == "${git_dir[$i]}" ]]); then
-                     for (( j=0; j<=${Ngit_st[$i]}; j++ )); do
-                         sync_dir_file ${source_dir_git[$i,$j]} ${target_dir_git[$i,$j]}
-                    done
-                fi
-            done
-### push from git initialized dir name
-            for i in ${!git_dir[@]}; do
-                if ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) && 
-                    ([[ "$2" == "$i" ]] || [[ "$2" == "${git_dir[$i]}" ]]); then
-                    for (( j=0; j<=${Ngit_st[$i]}; j++ )); do
-                        sync_push ${git_init_dir[$i,$j]} ${git_commit[$i,$j]} ${git_remote[$i,$j]} ${git_branch[$i,$j]}
-                    done
-                fi
-            done
-### push from git initialized dir name AND remote 
-            for i in ${!git_dir[@]}; do
-                for (( j=0; j<=${Ngit_dir[$i]}; j++ )); do
-                    if ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) && 
-                       ([[ "$2" == "$i" ]] || [[ "$2" == "$i" ]]) &&
-                       ([[ "$3" == "--remote" ]] || [[ "$3" == "-r" ]]) &&
-                       ([[ "$3" == "$j" ]] || [[ "$3" == "${git_remote[$i,$j]}" ]]); then
-                        sync_push ${git_init_dir[$i,$j]} ${git_commit[$i,$j]} ${git_remote[$i,$j]}  ${git_branch[$i,$j]}
-                    fi
-                done
-            done
-### push from remote
-            for s in ${git_remote[@]}; do
-                for i in ${!git_dir[@]}; do
-                    for (( j=0; j<=${Ngit_dir[$i]}; j++ )); do
-                        if ( ( ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) &&
-                            ([[ "$2" == "--remote" ]] || [[ "$2" == "-r" ]]) ) && 
-                            [[ "$3" == "$s" ]] ) ||
-                            ([[ "$1" == "-pr" ]] && [[ "$2" == "$s" ]]); then
-                                if [[ "$s" == "${git_remote[$i,$j]}" ]]; then
-                                    sync_push ${git_init_dir[$i,$j]} ${git_commit[$i,$j]} ${git_remote[$i,$j]} ${git_branch[$i,$j]}
-                                fi
-                        fi
-                    done
-                done
-            done
-            
-### push from branch
-
 ### clean temporary files
             if [[ "$1" == "--clean" ]] || [[ "$1" == "-cl" ]]; then
                 echo "cleaning temporary files..."
@@ -230,6 +170,67 @@ install_dir="$HOME/.config/sync.sh"
             else
                     echo "option not defined for the \"sync\" function."
             fi
+
+### local-local sync from aliases
+            for i in ${!alias_dir[@]}; do
+                if [[ "$1" == "${alias_dir[$i]}" ]]; then
+                    sync_core ${source_dir[$i]} ${target_dir[$i]}
+                fi
+            done
+            for i in ${!git_dir[@]}; do
+                 for (( j=0; j<=${Ngit_st[$i]}; j++ )); do
+                    if [[ "$1" ==  "${alias_git[$i,$j]}" ]]; then
+                        sync_dir_file ${source_dir_git[$i,$j]} ${target_dir_git[$i,$j]}
+                    fi
+                done
+            done
+### local-git sync from git initialized dir name 
+            for i in ${!git_dir[@]}; do
+                if ([[ "$1" == "--git" ]] || [[ "$1" == "-g" ]]) && 
+                   ([[ "$2" == "$i" ]] || [[ "$2" == "${git_dir[$i]}" ]]); then
+                     for (( j=0; j<=${Ngit_st[$i]}; j++ )); do
+                         sync_dir_file ${source_dir_git[$i,$j]} ${target_dir_git[$i,$j]}
+                    done
+                fi
+            done
+### push from git initialized dir name
+            for i in ${!git_dir[@]}; do
+                if ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) && 
+                    ([[ "$2" == "$i" ]] || [[ "$2" == "${git_dir[$i]}" ]]); then
+                    for (( j=0; j<=${Ngit_st[$i]}; j++ )); do
+                        sync_push ${git_init_dir[$i,$j]} ${git_commit[$i,$j]} ${git_remote[$i,$j]} ${git_branch[$i,$j]}
+                    done
+                fi
+            done
+### push from git initialized dir name AND remote 
+            for i in ${!git_dir[@]}; do
+                for (( j=0; j<=${Ngit_dir[$i]}; j++ )); do
+                    if ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) && 
+                       ([[ "$2" == "$i" ]] || [[ "$2" == "$i" ]]) &&
+                       ([[ "$3" == "--remote" ]] || [[ "$3" == "-r" ]]) &&
+                       ([[ "$4" == "$j" ]] || [[ "$4" == "${git_remote[$i,$j]}" ]]); then
+                        sync_push ${git_init_dir[$i,$j]} ${git_commit[$i,$j]} ${git_remote[$i,$j]}  ${git_branch[$i,$j]}
+                    fi
+                done
+            done
+### push from remote
+            for s in ${git_remote[@]}; do
+                for i in ${!git_dir[@]}; do
+                    for (( j=0; j<=${Ngit_dir[$i]}; j++ )); do
+                        if ( ( ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) &&
+                            ([[ "$2" == "--remote" ]] || [[ "$2" == "-r" ]]) ) && 
+                            [[ "$3" == "$s" ]] ) ||
+                            ([[ "$1" == "-pr" ]] && [[ "$2" == "$s" ]]); then
+                                if [[ "$s" == "${git_remote[$i,$j]}" ]]; then
+                                    sync_push ${git_init_dir[$i,$j]} ${git_commit[$i,$j]} ${git_remote[$i,$j]} ${git_branch[$i,$j]}
+                                fi
+                        fi
+                    done
+                done
+            done
+            
+### push from branch
+
 ## unset auxiliaty functions
     unset -f create_dir
     unset -f sync_core
