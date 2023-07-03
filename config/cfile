@@ -1,0 +1,516 @@
+#! /bin/bash
+
+    declare -A SYNC_blocks
+
+    SYNC_blocks["files"]="files"
+    SYNC_blocks["config"]="config"
+    SYNC_blocks["dev"]="dev" 
+
+    declare -A SYNC_source
+    declare -A SYNC_target
+    declare -A SYNC_alias
+    declare -A SYNC_cmd_before
+    declare -A SYNC_cmd_after
+
+    declare -A SYNC_max
+    declare -A SYNC_max_cmd_before
+    declare -A SYNC_max_cmd_after
+
+    SYNC_source["files",0]=$HOME/files/config/linux/xterm/Xresources
+    SYNC_target["files",0]=$HOME/.Xresources
+    SYNC_alias["files",0]="Xresources"
+    SYNC_cmd_before["files",0,0]=""
+    SYNC_cmd_after["files",0,0]=""
+    SYNC_max_cmd_before["files",0]=0
+    SYNC_max_cmd_after["files",0]=0
+    
+    SYNC_source["files",1]=$HOME/files/config/linux/mailcap
+    SYNC_target["files",1]=$HOME/.mailcap
+    SYNC_alias["files",1]="mailcap"
+    SYNC_cmd_before["files",1,0]=""
+    SYNC_cmd_after["files",1,0]=""
+    SYNC_max_cmd_before["files",1]=0
+    SYNC_max_cmd_after["files",1]=0
+
+    SYNC_source["files",2]=$HOME/files/config/linux/xinitrc
+    SYNC_target["files",2]=$HOME/.xinitrc
+    SYNC_alias["files",2]="xinitrc"
+    SYNC_cmd_before["files",2,0]=""
+    SYNC_cmd_after["files",2,0]=""
+    SYNC_max_cmd_before["files",2]=0
+    SYNC_max_cmd_after["files",2]=0
+
+    SYNC_max["files"]=2
+
+# config
+
+    SYNC_source["config",0]=$HOME/files/config/linux/mutt/
+    SYNC_target["config",0]=$HOME/.mutt
+    SYNC_alias["config",0]="mutt"
+    SYNC_cmd_before["config",0,0]=""
+    SYNC_cmd_after["config",0,0]=""
+    SYNC_max_cmd_before["config",0]=0
+    SYNC_max_cmd_after["config",0]=0
+
+    SYNC_source["config",1]=$HOME/files/config/linux/i3/
+    SYNC_target["config",1]=$HOME/.config/i3/
+    SYNC_alias["config",1]="i3"
+    SYNC_cmd_before["config",1,0]=""
+    SYNC_cmd_after["config",1,0]=""
+    SYNC_max_cmd_before["config",1]=0
+    SYNC_max_cmd_after["config",1]=0
+
+    SYNC_source["config",2]=$HOME/files/nerd/dev/vim/vimtex-colors.vim/
+    SYNC_target["config",2]=$HOME/files/config/vim/bundle/vimtex-colors.vim/
+    SYNC_alias["config",2]="vimtex-colors"
+    SYNC_cmd_before["config",2,0]=""
+    SYNC_cmd_after["config",2,0]=""
+    SYNC_max_cmd_before["config",2]=0
+    SYNC_max_cmd_after["config",2]=0
+
+    SYNC_source["config",3]=$HOME/files/nerd/dev/vim/essence.vim/
+    SYNC_target["config",3]=$HOME/files/config/vim/bundle/essence.vim/
+    SYNC_alias["config",3]="essence-colors"
+    SYNC_cmd_before["config",3,0]=""
+    SYNC_cmd_after["config",3,0]=""
+    SYNC_max_cmd_before["config",3]=0
+    SYNC_max_cmd_after["config",3]=0
+
+    SYNC_source["config",4]=$HOME/.vim/spell/
+    SYNC_target["config",4]=$HOME/files/config/vim/spell/
+    SYNC_alias["config",4]="vim-spell"
+    SYNC_cmd_before["config",4,0]=""
+    SYNC_cmd_after["config",4,0]=""
+    SYNC_max_cmd_before["config",4]=0
+    SYNC_max_cmd_after["config",4]=0
+
+    SYNC_source["config",5]=$HOME/files/config/vim/
+    SYNC_target["config",5]=$HOME/.vim/
+    SYNC_alias["config",5]="vim"
+    SYNC_cmd_before["config",5,0]=""
+    SYNC_cmd_after["config",5,0]=""
+    SYNC_max_cmd_before["config",5]=0
+    SYNC_max_cmd_after["config",5]=0
+
+    SYNC_max["config"]=5
+
+# dev
+
+    SYNC_source["dev",0]=$HOME/files/nerd/dev/sh/ecl.sh/
+    SYNC_target["dev",0]=$HOME/.config/ecl.sh/
+    SYNC_alias["dev",0]="ecl"
+    SYNC_cmd_before["dev",0,0]=""
+    SYNC_cmd_after["dev",0,0]=""
+    SYNC_max_cmd_before["dev",0]=0
+    SYNC_max_cmd_after["dev",0]=0
+
+    SYNC_source["dev",1]=$HOME/files/nerd/dev/sh/trsl.sh/
+    SYNC_target["dev",1]=$HOME/.config/trsl.sh/
+    SYNC_alias["dev",1]="trsl"
+    SYNC_cmd_before["dev",1,0]=""
+    SYNC_cmd_after["dev",1,0]=""
+    SYNC_max_cmd_before["dev",1]=0
+    SYNC_max_cmd_after["dev",1]=0
+
+    SYNC_source["dev",2]=$HOME/files/nerd/dev/sh/cvt.sh/
+    SYNC_target["dev",2]=$HOME/.config/cvt.sh/
+    SYNC_alias["dev",2]="cvt"
+    SYNC_cmd_before["dev",2,0]=""
+    SYNC_cmd_after["dev",2,0]=""
+    SYNC_max_cmd_before["dev",2]=0
+    SYNC_max_cmd_after["dev",2]=0
+
+    SYNC_source["dev",3]=$HOME/files/nerd/dev/sh/sync.sh/
+    SYNC_target["dev",3]=$HOME/.config/sync.sh/
+    SYNC_alias["dev",3]="sync"
+    SYNC_cmd_before["dev",3,0]=""
+    SYNC_cmd_after["dev",3,0]=""
+    SYNC_max_cmd_before["dev",3]=0
+    SYNC_max_cmd_after["dev",3]=0
+
+    SYNC_source["dev",4]=$HOME/files/nerd/dev/sh/pm.sh/
+    SYNC_target["dev",4]=$HOME/.config/pm.sh/
+    SYNC_alias["dev",4]="pm"
+    SYNC_cmd_before["dev",4,0]=""
+    SYNC_cmd_after["dev",4,0]=""
+    SYNC_max_cmd_before["dev",4]=0
+    SYNC_max_cmd_after["dev",4]=0
+
+    SYNC_source["dev",5]=$HOME/files/nerd/dev/sh/bkp.sh/
+    SYNC_target["dev",5]=$HOME/.config/bkp.sh/
+    SYNC_cmd_before["dev",5,0]=""
+    SYNC_cmd_after["dev",5,0]=""
+    SYNC_max_cmd_before["dev",5]=0
+    SYNC_max_cmd_after["dev",5]=0
+    
+    SYNC_source["dev",6]=$HOME/files/nerd/dev/sh/sw.sh/
+    SYNC_target["dev",6]=$HOME/.config/sw.sh/
+    SYNC_alias["dev",6]="sw"
+    SYNC_cmd_before["dev",6,0]=""
+    SYNC_cmd_after["dev",6,0]=""
+    SYNC_max_cmd_before["dev",6]=0
+    SYNC_max_cmd_after["dev",6]=0
+
+    SYNC_source["dev",7]=$HOME/files/nerd/dev/sh/web.sh/
+    SYNC_target["dev",7]=$HOME/.config/web.sh/
+    SYNC_alias["dev",7]="web"
+    SYNC_cmd_before["dev",7,0]=""
+    SYNC_cmd_after["dev",7,0]=""
+    SYNC_max_cmd_before["dev",7]=0
+    SYNC_max_cmd_after["dev",7]=0
+
+    SYNC_source["dev",8]=$HOME/files/nerd/dev/sh/pkg.sh/
+    SYNC_target["dev",8]=$HOME/.config/pkg.sh/
+    SYNC_alias["dev",8]="pkg"
+    SYNC_cmd_before["dev",8,0]=""
+    SYNC_cmd_after["dev",8,0]=""
+    SYNC_max_cmd_before["dev",8]=0
+    SYNC_max_cmd_after["dev",8]=0
+
+    SYNC_source["dev",9]=$HOME/files/nerd/dev/sh/menu.sh/
+    SYNC_target["dev",9]=$HOME/.config/menu.sh/
+    SYNC_alias["dev",9]="menu"
+    SYNC_cmd_before["dev",9,0]=""
+    SYNC_cmd_after["dev",9,0]=""
+    SYNC_max_cmd_before["dev",9]=0
+    SYNC_max_cmd_after["dev",9]=0
+
+    SYNC_max["dev"]=9
+    
+# GIT MODE
+## defining the parent git dirs
+
+    declare -A SYNC_git_parent
+    SYNC_git_parent["codeberg"]=$HOME/bkp/codeberg
+    SYNC_git_parent["github"]=$HOME/bkp/github
+    
+## defining git initialized dirs
+    declare -A SYNC_git_init
+    declare -A SYNC_max_git_init
+
+### codeberg
+    SYNC_git_init["codeberg",0]="backup"
+
+    SYNC_max_git_init["codeberg"]=0
+
+### github
+    SYNC_git_init["github",0]="config"
+    SYNC_git_init["github",1]="dev"
+    SYNC_git_init["github",2]="sh/bkp.sh"
+    SYNC_git_init["github",3]="sh/cvt.sh"
+    SYNC_git_init["github",4]="sh/ecl.sh"
+    SYNC_git_init["github",5]="sh/emutt.sh"
+    SYNC_git_init["github",6]="sh/pkg.sh"
+    SYNC_git_init["github",7]="sh/pm.sh"
+    SYNC_git_init["github",8]="sh/sw.sh"
+    SYNC_git_init["github",9]="sh/sync.sh"
+    SYNC_git_init["github",10]="sh/menu.sh"
+    SYNC_git_init["github",11]="sh/trsl.sh"
+    SYNC_git_init["github",12]="sh/web.sh"
+    SYNC_git_init["github",13]="vim/essence.vim"
+    SYNC_git_init["github",14]="vim/mpc.vim"
+    SYNC_git_init["github",15]="vim/org.vim"
+    SYNC_git_init["github",16]="vim/vimtex-colors.vim"
+    SYNC_git_init["github",17]="doc"
+    SYNC_git_init["github",18]="math"
+    SYNC_git_init["github",19]="yxm-dev"
+
+    SYNC_max_git_init["github"]=19
+
+## remotes (default is the name of the initialized dirs)
+    declare -A SYNC_git_remote
+    SYNC_git_remote["codeberg",0]="backup"
+    SYNC_git_remote["github",0]="config"
+    SYNC_git_remote["github",1]="dev"
+    SYNC_git_remote["github",2]="bkp"
+    SYNC_git_remote["github",3]="cvt"
+    SYNC_git_remote["github",4]="ecl"
+    SYNC_git_remote["github",5]="emutt"
+    SYNC_git_remote["github",6]="pkg"
+    SYNC_git_remote["github",7]="pm"
+    SYNC_git_remote["github",8]="sw"
+    SYNC_git_remote["github",9]="sync"
+    SYNC_git_remote["github",10]="menu"
+    SYNC_git_remote["github",11]="trsl"
+    SYNC_git_remote["github",12]="web"
+    SYNC_git_remote["github",13]="essence"
+    SYNC_git_remote["github",14]="mpc"
+    SYNC_git_remote["github",15]="org"
+    SYNC_git_remote["github",16]="vimtex"
+    SYNC_git_remote["github",17]="doc"
+    SYNC_git_remote["github",18]="math"
+    SYNC_git_remote["github",19]="yxm"
+
+## remote add (default is empty)
+    declare -A SYNC_git_remote_add
+    SYNC_git_remote_add["codeberg",0]="ssh://git@codeberg.org/yxm/backup"
+    SYNC_git_remote_add["github",0]="ssh://git@github.com/yxm-dev/config"
+    SYNC_git_remote_add["github",1]="ssh://git@github.com/yxm-dev/dev"
+    SYNC_git_remote_add["github",2]="ssh://git@github.com/yxm-dev/bkp.sh"
+    SYNC_git_remote_add["github",3]="ssh://git@github.com/yxm-dev/cvt.sh"
+    SYNC_git_remote_add["github",4]="ssh://git@github.com/yxm-dev/ecl.sh"
+    SYNC_git_remote_add["github",5]="ssh://git@github.com/yxm-dev/emutt.sh"
+    SYNC_git_remote_add["github",6]="ssh://git@github.com/yxm-dev/pkg.sh"
+    SYNC_git_remote_add["github",7]="ssh://git@github.com/yxm-dev/pm.sh"
+    SYNC_git_remote_add["github",8]="ssh://git@github.com/yxm-dev/sw.sh"
+    SYNC_git_remote_add["github",9]="ssh://git@github.com/yxm-dev/sync.sh"
+    SYNC_git_remote_add["github",10]="ssh://git@github.com/yxm-dev/menu.sh"
+    SYNC_git_remote_add["github",11]="ssh://git@github.com/yxm-dev/trsl.sh"
+    SYNC_git_remote_add["github",12]="ssh://git@github.com/yxm-dev/web.sh"
+    SYNC_git_remote_add["github",13]=""
+    SYNC_git_remote_add["github",14]=""
+    SYNC_git_remote_add["github",15]=""
+    SYNC_git_remote_add["github",16]=""
+    SYNC_git_remote_add["github",17]="ssh://git@github.com/yxm-dev/doc"
+    SYNC_git_remote_add["github",18]="ssh://git@github.com/yxm-dev/math"
+    SYNC_git_remote_add["github",19]="ssh://git@github.com/yxm-dev/yxm-dev"
+
+## branches (default is master)
+    declare -A SYNC_git_branch
+    SYNC_git_branch["codeberg",0]="master" 
+    SYNC_git_branch["github",0]="master"
+    SYNC_git_branch["github",1]="master"
+    SYNC_git_branch["github",2]="master"
+    SYNC_git_branch["github",3]="master"
+    SYNC_git_branch["github",4]="master"
+    SYNC_git_branch["github",5]="master"
+    SYNC_git_branch["github",6]="master"
+    SYNC_git_branch["github",7]="master"
+    SYNC_git_branch["github",8]="master"
+    SYNC_git_branch["github",9]="master"
+    SYNC_git_branch["github",10]="master"
+    SYNC_git_branch["github",11]="master"
+    SYNC_git_branch["github",12]="master"
+    SYNC_git_branch["github",13]="master"
+    SYNC_git_branch["github",14]="master"
+    SYNC_git_branch["github",15]="master"
+    SYNC_git_branch["github",16]="master"
+    SYNC_git_branch["github",17]="master"
+    SYNC_git_branch["github",18]="master"
+    SYNC_git_branch["github",19]="master"
+
+## default commit (default is "...")
+    declare -A SYNC_git_commit
+    SYNC_git_commit["codeberg",0]="..."
+    SYNC_git_commit["github",0]="..."
+    SYNC_git_commit["github",1]="..."
+    SYNC_git_commit["github",2]="..."
+    SYNC_git_commit["github",3]="..."
+    SYNC_git_commit["github",4]="..."
+    SYNC_git_commit["github",5]="..."
+    SYNC_git_commit["github",6]="..."
+    SYNC_git_commit["github",7]="..."
+    SYNC_git_commit["github",8]="..."
+    SYNC_git_commit["github",9]="..."
+    SYNC_git_commit["github",10]="..."
+    SYNC_git_commit["github",11]="..."
+    SYNC_git_commit["github",12]="..."
+    SYNC_git_commit["github",13]="..."
+    SYNC_git_commit["github",14]="..."
+    SYNC_git_commit["github",15]="..."
+    SYNC_git_commit["github",16]="..."
+    SYNC_git_commit["github",17]="..."
+    SYNC_git_commit["github",18]="..."
+    SYNC_git_commit["github",19]="..."
+
+## defining local-git pairs
+    declare -A SYNC_git_source
+    declare -A SYNC_git_target
+    declare -A SYNC_git_alias
+    declare -A SYNC_git_cmd_before
+    declare -A SYNC_git_cmd_after
+
+    declare -A SYNC_max_git
+    declare -A SYNC_max_git_cmd_before
+    declare -A SYNC_max_git_cmd_after
+
+### codeberg
+    SYNC_git_source["codeberg",0]=$HOME/files/
+    SYNC_git_target["codeberg",0]=${SYNC_git_parent["codeberg"]}/backup/
+    SYNC_git_alias["codeberg",0]="backup_codeberg_git"
+    SYNC_git_cmd_before["codeberg",0,0]=""
+    SYNC_git_cmd_after["codeberg",0,0]=""
+    SYNC_max_git_exclude["codeberg",0]=0
+    SYNC_max_git_cmd_before["codeberg",0]=0
+    SYNC_max_git_cmd_after["codeberg",0]=0
+
+    SYNC_max_git["codeberg"]=0
+
+### github
+    SYNC_git_source["github",0]=$HOME/files/nerd/dev/sh/bkp.sh/
+    SYNC_git_target["github",0]=${SYNC_git_parent["github"]}/sh/bkp.sh/
+    SYNC_git_alias["github",0]="bkp_github_git"
+    SYNC_git_cmd_before["github",0,0]=""
+    SYNC_git_cmd_after["github",0,0]=""
+    SYNC_max_git_cmd_before["github",0]=0
+    SYNC_max_git_cmd_after["github",0]=0
+
+    SYNC_git_source["github",1]=$HOME/files/nerd/dev/sh/cvt.sh/
+    SYNC_git_target["github",1]=${SYNC_git_parent["github"]}/sh/cvt.sh/
+    SYNC_git_alias["github",1]="cvt_github_git"
+    SYNC_git_cmd_before["github",1,0]=""
+    SYNC_git_cmd_after["github",1,0]=""
+    SYNC_max_git_cmd_before["github",1]=0
+    SYNC_max_git_cmd_after["github",1]=0
+
+    SYNC_git_source["github",2]=$HOME/files/nerd/dev/sh/ecl.sh/
+    SYNC_git_target["github",2]=${SYNC_git_parent["github"]}/sh/ecl.sh/
+    SYNC_git_alias["github",2]="ecl_github_git"
+    SYNC_git_cmd_before["github",2,0]=""
+    SYNC_git_cmd_after["github",2,0]=""
+    SYNC_max_git_cmd_before["github",2]=0
+    SYNC_max_git_cmd_after["github",2]=0
+
+    SYNC_git_source["github",3]=$HOME/files/nerd/dev/sh/emutt.sh/
+    SYNC_git_target["github",3]=${SYNC_git_parent["github"]}/sh/emutt.sh/
+    SYNC_git_alias["github",3]="emutt_github_git"
+    SYNC_git_cmd_before["github",3,0]=""
+    SYNC_git_cmd_after["github",3,0]=""
+    SYNC_max_git_cmd_before["github",3]=0
+    SYNC_max_git_cmd_after["github",3]=0
+ 
+    SYNC_git_source["github",4]=$HOME/files/nerd/dev/sh/pkg.sh/
+    SYNC_git_target["github",4]=${SYNC_git_parent["github"]}/sh/pkg.sh/
+    SYNC_git_alias["github",4]="pkg_github_git"
+    SYNC_git_cmd_before["github",4,0]=""
+    SYNC_git_cmd_after["github",4,0]=""
+    SYNC_max_git_cmd_before["github",4]=0
+    SYNC_max_git_cmd_after["github",4]=0
+
+    SYNC_git_source["github",5]=$HOME/files/nerd/dev/sh/pm.sh/
+    SYNC_git_target["github",5]=${SYNC_git_parent["github"]}/sh/pm.sh/
+    SYNC_git_alias["github",5]="pm_github_git"
+    SYNC_git_cmd_before["github",5,0]=""
+    SYNC_git_cmd_after["github",5,0]=""
+    SYNC_max_git_cmd_before["github",5]=0
+    SYNC_max_git_cmd_after["github",5]=0
+
+    SYNC_git_source["github",6]=$HOME/files/nerd/dev/sh/sw.sh/
+    SYNC_git_target["github",6]=${SYNC_git_parent["github"]}/sh/sw.sh/
+    SYNC_git_alias["github",6]="sw_github_git"
+    SYNC_git_cmd_before["github",6,0]=""
+    SYNC_git_cmd_after["github",6,0]=""
+    SYNC_max_git_cmd_before["github",6]=0
+    SYNC_max_git_cmd_after["github",6]=0
+
+    SYNC_git_source["github",7]=$HOME/files/nerd/dev/sh/sync.sh/
+    SYNC_git_target["github",7]=${SYNC_git_parent["github"]}/sh/sync.sh/
+    SYNC_git_alias["github",7]="sync_github_git"
+    SYNC_git_cmd_before["github",7,0]=""
+    SYNC_git_cmd_after["github",7,0]=""
+    SYNC_max_git_cmd_before["github",7]=0
+    SYNC_max_git_cmd_after["github",7]=0
+
+    SYNC_git_source["github",8]=$HOME/files/nerd/dev/sh/trsl.sh/
+    SYNC_git_target["github",8]=${SYNC_git_parent["github"]}/sh/trsl.sh/
+    SYNC_git_alias["github",8]="trsl_github_git"
+    SYNC_git_cmd_before["github",8,0]=""
+    SYNC_git_cmd_after["github",8,0]=""
+    SYNC_max_git_cmd_before["github",8]=0
+    SYNC_max_git_cmd_after["github",8]=0
+
+    SYNC_git_source["github",9]=$HOME/files/nerd/dev/sh/web.sh/
+    SYNC_git_target["github",9]=${SYNC_git_parent["github"]}/sh/web.sh/
+    SYNC_git_alias["github",9]="web_github_git"
+    SYNC_git_cmd_before["github",9,0]=""
+    SYNC_git_cmd_after["github",9,0]=""
+    SYNC_max_git_cmd_before["github",9]=0
+    SYNC_max_git_cmd_after["github",9]=0
+
+    SYNC_git_source["github",10]=$HOME/files/nerd/dev/sh/menu.sh/
+    SYNC_git_target["github",10]=${SYNC_git_parent["github"]}/sh/menu.sh/
+    SYNC_git_alias["github",10]="menu_github_git"
+    SYNC_git_cmd_before["github",10,0]=""
+    SYNC_git_cmd_after["github",10,0]=""
+    SYNC_max_git_cmd_before["github",10]=0
+    SYNC_max_git_cmd_after["github",10]=0
+
+    SYNC_git_source["github",11]=$HOME/files/nerd/dev/vim/essence.vim/
+    SYNC_git_target["github",11]=${SYNC_git_parent["github"]}/vim/essence.vim/
+    SYNC_git_alias["github",11]="essence_github_git"
+    SYNC_git_cmd_before["github",11,0]=""
+    SYNC_git_cmd_after["github",11,0]=""
+    SYNC_max_git_cmd_before["github",11]=0
+    SYNC_max_git_cmd_after["github",11]=0
+
+    SYNC_git_source["github",12]=$HOME/files/nerd/dev/vim/mpc.vim/
+    SYNC_git_target["github",12]=${SYNC_git_parent["github"]}/vim/mpc.vim/
+    SYNC_git_alias["github",12]="mpc_github_git"
+    SYNC_git_cmd_before["github",12,0]=""
+    SYNC_git_cmd_after["github",12,0]=""
+    SYNC_max_git_cmd_before["github",12]=0
+    SYNC_max_git_cmd_after["github",12]=0
+
+    SYNC_git_source["github",13]=$HOME/files/nerd/dev/vim/org.vim/
+    SYNC_git_target["github",13]=${SYNC_git_parent["github"]}/vim/org.vim/
+    SYNC_git_alias["github",13]="org_github_git"
+    SYNC_git_cmd_before["github",13,0]=""
+    SYNC_git_cmd_after["github",13,0]=""
+    SYNC_max_git_cmd_before["github",13]=0
+    SYNC_max_git_cmd_after["github",13]=0
+
+    SYNC_git_source["github",14]=$HOME/files/nerd/dev/vim/vimtex-colors.vim/
+    SYNC_git_target["github",14]=${SYNC_git_parent["github"]}/vim/vimtex-colors.vim/
+    SYNC_git_alias["github",14]="vimtex_github_git"
+    SYNC_git_cmd_before["github",14,0]=""
+    SYNC_git_cmd_after["github",14,0]=""
+    SYNC_max_git_cmd_before["github",14]=0
+    SYNC_max_git_cmd_after["github",14]=0
+
+    SYNC_git_source["github",15]=$HOME/files/config/tex/preamble/
+    SYNC_git_target["github",15]=${SYNC_git_parent["github"]}/config/tex/
+    SYNC_git_alias["github",15]="tex_github_git"
+    SYNC_git_cmd_before["github",15,0]=""
+    SYNC_git_cmd_after["github",15,0]=""
+    SYNC_max_git_cmd_before["github",15]=0
+    SYNC_max_git_cmd_after["github",15]=0
+
+    SYNC_git_source["github",16]=$HOME/files/config/linux/
+    SYNC_git_target["github",16]=${SYNC_git_parent["github"]}/config/linux/
+    SYNC_git_alias["github",16]="linux_github_git"
+    SYNC_git_cmd_before["github",16,0]=""
+    SYNC_git_cmd_after["github",16,0]=""
+    SYNC_max_git_cmd_before["github",16]=0
+    SYNC_max_git_cmd_after["github",16]=0
+
+    SYNC_git_source["github",17]=$HOME/files/config/vim/vimrc
+    SYNC_git_target["github",17]=${SYNC_git_parent["github"]}/config/vim/vimrc
+    SYNC_git_alias["github",17]="vimrc_github_git"
+    SYNC_git_cmd_before["github",17,0]=""
+    SYNC_git_cmd_after["github",17,0]=""
+    SYNC_max_git_cmd_before["github",17]=0
+    SYNC_max_git_cmd_after["github",17]=0
+
+    SYNC_git_source["github",18]=$HOME/files/config/vim/vimrc_keybind
+    SYNC_git_target["github",18]=${SYNC_git_parent["github"]}/config/vim/vimrc_keybind
+    SYNC_git_alias["github",18]="vimrc_keybind_github_git"
+    SYNC_git_cmd_before["github",18,0]=""
+    SYNC_git_cmd_after["github",18,0]=""
+    SYNC_max_git_cmd_before["github",18]=0
+    SYNC_max_git_cmd_after["github",18]=0
+
+    SYNC_git_source["github",19]=$HOME/files/config/vim/vimrc_plugin
+    SYNC_git_target["github",19]=${SYNC_git_parent["github"]}/config/vim/vimrc_plugin
+    SYNC_git_alias["github",19]="vimrc_plugin_github_git"
+    SYNC_git_cmd_before["github",19,0]=""
+    SYNC_git_cmd_after["github",19,0]=""
+    SYNC_max_git_cmd_before["github",19]=0
+    SYNC_max_git_cmd_after["github",19]=0
+  
+    SYNC_git_source["github",20]=$HOME/files/nerd/doc/
+    SYNC_git_target["github",20]=${SYNC_git_parent["github"]}/doc/
+    SYNC_git_alias["github",20]="doc_github_git"
+    SYNC_git_cmd_before["github",20,0]=""
+    SYNC_git_cmd_after["github",20,0]=""
+    SYNC_max_git_cmd_before["github",20]=0
+    SYNC_max_git_cmd_after["github",20]=0
+
+    SYNC_git_source["github",21]=$HOME/files/math/pdfs/
+    SYNC_git_target["github",21]=${SYNC_git_parent["github"]}/math/
+    SYNC_git_alias["github",21]="pdfs_github_git"
+    SYNC_git_cmd_before["github",21,0]=""
+    SYNC_git_cmd_after["github",21,0]=""
+    SYNC_max_git_cmd_before["github",21]=0
+    SYNC_max_git_cmd_after["github",21]=0
+
+    SYNC_max_git["github"]=21
