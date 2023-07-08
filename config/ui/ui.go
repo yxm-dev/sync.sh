@@ -135,36 +135,69 @@ func addFilesPair() {
 	labels = append(labels, "pair alias:")	
 
 	for i := 0; i < len(labels); i++ {
-		bodyDependenciesAdd.AddInputField(labels[i], "", 30, nil, nil).
+		bodyStandardFilesAdd.AddInputField(labels[i], "", 30, nil, nil).
 			SetFieldBackgroundColor(tcell.ColorGray).
 			SetFieldTextColor(tcell.ColorWhite).
 			SetLabelColor(tcell.ColorWhite)
 	}
 
-	bodyDependenciesAdd.AddButton("add other", func() {
-		dependencyName = bodyDependenciesAdd.GetFormItemByLabel(labels[0]).(*tview.InputField).GetText()
-		commandDistros = bodyDependenciesAdd.GetFormItemByLabel(labels[1]).(*tview.InputField).GetText()
+	bodyStandardFilesAdd.AddButton("add other", func() {
+		sourceFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[0]).(*tview.InputField).GetText()
+		targetFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[1]).(*tview.InputField).GetText()
+		aliasFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[2]).(*tview.InputField).GetText()
 
 		appendDependenciesPkgfile(dependencyName)
 		appendDependenciesDistrosPkgfile(dependencyName, commandDistros)
 
-		pages.SwitchToPage("Dependencies Intro")
+		pages.SwitchToPage("Standard Files Intro")
 	}).
 		SetLabelColor(tcell.ColorWhite).
 		SetBorder(false)
 
-	bodyDependenciesAdd.AddButton("conclude", func() {
-		dependencyName = bodyDependenciesAdd.GetFormItemByLabel(labels[0]).(*tview.InputField).GetText()
-		commandDistros = bodyDependenciesAdd.GetFormItemByLabel(labels[1]).(*tview.InputField).GetText()
 
-		appendLastDependencyPkgfile(dependencyName)
+	bodyStandardFilesAdd.AddButton("add command before", func() {
+		sourceFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[0]).(*tview.InputField).GetText()
+		targetFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[1]).(*tview.InputField).GetText()
+		aliasFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[2]).(*tview.InputField).GetText()
+
+		appendDependenciesPkgfile(dependencyName)
 		appendDependenciesDistrosPkgfile(dependencyName, commandDistros)
 
-		concludePkgfile()
-		deleteConcludePkgfile()
-		app.Stop()
-		fmt.Println("Pkgfile has been created.")
+		pages.SwitchToPage("Command Before Files Add")
 	}).
+		SetLabelColor(tcell.ColorWhite).
+		SetBorder(false)
+	
+	bodyStandardFilesAdd.AddButton("add command after", func() {
+		sourceFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[0]).(*tview.InputField).GetText()
+		targetFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[1]).(*tview.InputField).GetText()
+		aliasFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[2]).(*tview.InputField).GetText()
+
+		appendDependenciesPkgfile(dependencyName)
+		appendDependenciesDistrosPkgfile(dependencyName, commandDistros)
+
+		pages.SwitchToPage("Command Before Files Add")
+	}).
+		SetLabelColor(tcell.ColorWhite).
+		SetBorder(false)
+
+	bodyStandardFilesAdd.AddButton("add exclude", func() {
+		sourceFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[0]).(*tview.InputField).GetText()
+		targetFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[1]).(*tview.InputField).GetText()
+		aliasFile = bodyStandardFilesAdd.GetFormItemByLabel(labels[2]).(*tview.InputField).GetText()
+
+		appendDependenciesPkgfile(dependencyName)
+		appendDependenciesDistrosPkgfile(dependencyName, commandDistros)
+
+		pages.SwitchToPage("Exclude Files Add")
+	}).
+		SetLabelColor(tcell.ColorWhite).
+		SetBorder(false)
+
+	bodyDependenciesAdd.AddButton("return", func() {
+		pages.SwitchToPage("Standard Intro")
+
+			}).
 		SetLabelColor(tcell.ColorWhite).
 		SetBorder(false)
 }
@@ -380,7 +413,7 @@ func main() {
 
 	// PAGE STANDARD FILES ADD - header
 	headerStandardFilesAdd = tview.NewTextView().
-		SetText("\n  Enter the full path to the source/target files...")
+		SetText("\n  Enter the full path to the source/target files and an alias to this pair...")
 
 	// PAGE STANDARD FILES ADD - body
 	bodyStandardFilesAdd = tview.NewForm()
@@ -394,6 +427,8 @@ func main() {
 		AddItem(headerStandardFilesAdd, 0, 1, false).
 		AddItem(bodyStandardFilesAdd, 0, 4, true).
 		AddItem(footerStandardFilesAdd, 0, 1, false)
+
+	
 
 	// PAGES
 	pages = tview.NewPages().
@@ -409,7 +444,7 @@ func main() {
 		AddPage("Git Add", pageGitAdd, true, false).
 		AddPage("Exclude Add", pageExcludeAdd, true, false).
 		AddPage("Command Before Add", pageCommandBeforeAdd, true, false).
-		AddPage("Command Before After", pageCommandAfterAdd, true, false)
+		AddPage("Command After Add", pageCommandAfterAdd, true, false)
 
 	// setting the widget "pages" as the root. Enable mouse.
 	if err := app.SetRoot(pages, true).EnableMouse(true).Run(); err != nil {

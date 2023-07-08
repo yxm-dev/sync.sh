@@ -513,4 +513,12 @@
     SYNC_max_git_cmd_before["github",21]=0
     SYNC_max_git_cmd_after["github",21]=0
 
-    SYNC_max_git["github"]=21
+    SYNC_git_source["github",22]=$HOME/files/nerd/dev/devs/
+    SYNC_git_target["github",22]=${SYNC_git_parent["github"]}/dev/
+    SYNC_git_alias["github",22]="devs_github_git"
+    SYNC_git_cmd_before["github",22,0]=""
+    SYNC_git_cmd_after["github",22,0]=""
+    SYNC_max_git_cmd_before["github",22]=0
+    SYNC_max_git_cmd_after["github",22]=0
+
+    SYNC_max_git["github"]=22

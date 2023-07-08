@@ -244,15 +244,13 @@ SYNC_install_dir=$HOME/.config/sync.sh
                     sync_push $parent/${SYNC_git_init[$parent_name,$j]} ${SYNC_git_commit[$parent_name,$j]} ${SYNC_git_remote[$parent_name,$j]} ${SYNC_git_branch[$parent_name,$j]}
                 done
             done
-        fi
-
+        else
 ### sync from aliases
-        for block in ${SYNC_blocks[@]}; do
-            declare -i bound_1
-            bound_1=${SYNC_max[$block]}
-            for (( j=0; j <= $bound_1; j++ )); do
-                if [[ "$1" == "${SYNC_alias[$block,$j]}" ]]; then
-                    for (( j=0; j <= $bound_1; j++ )); do
+            for block in ${SYNC_blocks[@]}; do
+                declare -i bound_1
+                bound_1=${SYNC_max[$block]}
+                for (( j=0; j <= $bound_1; j++ )); do
+                    if [[ "$1" == "${SYNC_alias[$block,$j]}" ]]; then
                         declare -i bound_2
                         bound_2=${SYNC_max_cmd_before[$block,$j]}
                         for (( k=0; k <= $bound_2; k++ )); do
@@ -265,78 +263,74 @@ SYNC_install_dir=$HOME/.config/sync.sh
                         for (( l=0; m <= $bound_3; l++ )); do
                             cmd_function ${SYNC_cmd_after[$block,$j,$l]}
                         done
-                    done
-                fi
+                    fi
+                done
             done
-        done
-
 ### sync from git aliases
-        for parent in ${SYNC_git_parent[@]}; do
-            parent_name=${parent##*/}
-            declare -i bound_1
-            bound_1=${SYNC_max_git[$parent_name]}
-            for (( j=0; j <= $bound_1; j++ )); do
-                if [[ "$1" == "${SYNC_alias[$block,$j]}" ]]; then
-                    declare -i bound_2
-                    bound_2=${SYNC_max_git_cmd_before[$parent_name,$j]}
-                    for (( k=0; k <= $bound_2; k++ )); do
-                        cmd_function ${SYNC_git_cmd_before[$parent_name,$j,$k]}
-                    done
-                    exclude_file=$SYNC_install_dir/files/excludes_git/${parent_name}_$j
-                    sync_dir_file ${SYNC_git_source[$parent_name,$j]} ${SYNC_git_target[$parent_name,$j]} $exclude_file
-                    declare -i bound_4
-                    bound_4=${SYNC_max_git_cmd_after[$parent_name,$j]}
-                    for (( m=0; m <= $bound_4; m++ )); do
-                        cmd_function ${SYNC_git_cmd_after[$parent_name,$j,$m]}
-                    done
-                 fi
+            for parent in ${SYNC_git_parent[@]}; do
+                parent_name=${parent##*/}
+                declare -i bound_1
+                bound_1=${SYNC_max_git[$parent_name]}
+                for (( j=0; j <= $bound_1; j++ )); do
+                    if [[ "$1" == "${SYNC_alias[$block,$j]}" ]]; then
+                        declare -i bound_2
+                        bound_2=${SYNC_max_git_cmd_before[$parent_name,$j]}
+                        for (( k=0; k <= $bound_2; k++ )); do
+                            cmd_function ${SYNC_git_cmd_before[$parent_name,$j,$k]}
+                        done
+                        exclude_file=$SYNC_install_dir/files/excludes_git/${parent_name}_$j
+                        sync_dir_file ${SYNC_git_source[$parent_name,$j]} ${SYNC_git_target[$parent_name,$j]} $exclude_file
+                        declare -i bound_4
+                        bound_4=${SYNC_max_git_cmd_after[$parent_name,$j]}
+                        for (( m=0; m <= $bound_4; m++ )); do
+                            cmd_function ${SYNC_git_cmd_after[$parent_name,$j,$m]}
+                        done
+                    fi
+                done
             done
-        done
-
 ### push from git initialized dir name
-        for parent in ${SYNC_git_parent[@]}; do
-            declare -i bound
-            parent_name=${parent##*/}
-            bound=${SYNC_max_git_init[$parent_name]}
-            for (( j=0; j <= $bound; j++ )); do
-                if ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) && 
-                   ([[ "$2" == "$i" ]] || [[ "$2" == "${SYNC_git_init[$parent_name,$j]}" ]]); then
+            for parent in ${SYNC_git_parent[@]}; do
+                declare -i bound
+                parent_name=${parent##*/}
+                bound=${SYNC_max_git_init[$parent_name]}
+                for (( j=0; j <= $bound; j++ )); do
+                    if ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) &&
+                       ([[ "$2" == "$i" ]] || [[ "$2" == "${SYNC_git_init[$parent_name,$j]}" ]]); then
                         sync_push $parent/${SYNC_git_init[$parent_name,$j]} ${SYNC_git_commit[$parent_name,$j]} ${SYNC_git_remote[$parent_name,$j]} ${SYNC_git_branch[$parent_name,$j]}
-                fi
+                    fi
+                done
             done
-        done
-
-### push from git initialized dir name AND remote 
-        for parent in ${SYNC_git_parent[@]}; do
-            parent_name=${parent##*/}
-            declare -i bound
-            bound=${SYNC_max_git_init[$parent_name]}
-            for (( j=0; j <= $bound; j++ )); do
-                if ( ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) && ([[ "$2" == "$parent_name" ]]) &&
-                     ([[ "$3" == "--remote" ]] || [[ "$3" == "-r" ]]) && 
-                     ([[ "$4" == "$j" ]] || [[ "$4" == "${SYNC_git_remote[$parent_name,$j]}" ]]) ) ||
-                   ( ([[ "$3" == "--push" ]] || [[ "$3" == "-p" ]]) && ([[ "$4" == "$parent_name" ]]) &&
-                     ([[ "$1" == "--remote" ]] || [[ "$1" == "-r" ]]) &&
-                     ([[ "$2" == "$j" ]] || [[ "$2" == "${SYNC_git_remote[$parent_name,$j]}" ]]) ); then
-                       sync_push $parent/${SYNC_git_init[$parent_name,$j]} ${SYNC_git_commit[$parent_name,$j]} ${SYNC_git_remote[$parent_name,$j]} ${SYNC_git_branch[$parent_name,$j]}
-                fi
+### push from git initialized dir name AND remote
+            for parent in ${SYNC_git_parent[@]}; do
+                parent_name=${parent##*/}
+                declare -i bound
+                bound=${SYNC_max_git_init[$parent_name]}
+                for (( j=0; j <= $bound; j++ )); do
+                    if ( ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) && ([[ "$2" == "$parent_name" ]]) &&
+                         ([[ "$3" == "--remote" ]] || [[ "$3" == "-r" ]]) &&
+                         ([[ "$4" == "$j" ]] || [[ "$4" == "${SYNC_git_remote[$parent_name,$j]}" ]]) ) ||
+                       ( ([[ "$3" == "--push" ]] || [[ "$3" == "-p" ]]) && ([[ "$4" == "$parent_name" ]]) &&
+                         ([[ "$1" == "--remote" ]] || [[ "$1" == "-r" ]]) &&
+                         ([[ "$2" == "$j" ]] || [[ "$2" == "${SYNC_git_remote[$parent_name,$j]}" ]]) ); then
+                            sync_push $parent/${SYNC_git_init[$parent_name,$j]} ${SYNC_git_commit[$parent_name,$j]} ${SYNC_git_remote[$parent_name,$j]} ${SYNC_git_branch[$parent_name,$j]}
+                    fi
+                done
             done
-        done
 ### push from remote
-        for parent in ${SYNC_git_parent[@]}; do
-            parent_name=${parent##*/}
-            declare -i bound
-            bound=${SYNC_max_git_init[$parent_name]}
-            for (( j=0; j <= $bound; j++ )); do
-                if  ( ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) &&
-                     ([[ "$2" == "--remote" ]] || [[ "$2" == "-r" ]]) && 
-                     ([[ "$3" == "${SYNC_git_remote[$parent_name,$j]}" ]]) ) ||
-                     ([[ "$1" == "-pr" ]] && [[ "$2" == "${SYNC_git_remote[$parent,$j]}" ]]) ; then
-                       sync_push $parent/${SYNC_git_init[$parent_name,$j]} ${SYNC_git_commit[$parent_name,$j]} ${SYNC_git_remote[$parent_name,$j]} ${SYNC_git_branch[$parent_name,$j]}
-                fi
+            for parent in ${SYNC_git_parent[@]}; do
+                parent_name=${parent##*/}
+                declare -i bound
+                bound=${SYNC_max_git_init[$parent_name]}
+                for (( j=0; j <= $bound; j++ )); do
+                    if  ( ([[ "$1" == "--push" ]] || [[ "$1" == "-p" ]]) &&
+                          ([[ "$2" == "--remote" ]] || [[ "$2" == "-r" ]]) &&
+                          ([[ "$3" == "${SYNC_git_remote[$parent_name,$j]}" ]]) ) ||
+                          ([[ "$1" == "-pr" ]] && [[ "$2" == "${SYNC_git_remote[$parent,$j]}" ]]) ; then
+                            sync_push $parent/${SYNC_git_init[$parent_name,$j]} ${SYNC_git_commit[$parent_name,$j]} ${SYNC_git_remote[$parent_name,$j]} ${SYNC_git_branch[$parent_name,$j]}
+                    fi
+                done
             done
-        done            
-### push from branch
+        fi
 
 ## unset auxiliaty functions
     unset -f create_dir
