@@ -1,0 +1,22 @@
+#! /bin/bash
+
+PKG_name="pkg.sh"
+
+declare -a PKG_dependencies
+PKG_dependencies=(rsync)
+
+declare -A PKG_distro_include
+
+PKG_distro_include["Debian"]="yes"
+PKG_distro_include["Arch"]="yes"
+PKG_distro_include["RedHat"]="yes"
+PKG_distro_include["openSUSE"]="yes"
+
+declare -A PKG_distro_package_name
+
+PKG_distro_package_name["Debian","rsync"]="rsync"
+PKG_distro_package_name["Arch","rsync"]="rsync"
+PKG_distro_package_name["RedHat","rsync"]="rsync"
+PKG_distro_package_name["openSUSE","rsync"]="rsync"
+
+
