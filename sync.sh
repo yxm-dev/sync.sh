@@ -4,8 +4,8 @@
     function sync() {
 ## Includes
     source ${BASH_SOURCE%/*}/pkgfile
-    if [[ -f "$PKG_install_dir/config/config" ]]; then
-        source $PKG_install_dir/config/config
+    if [[ -f "$PKG_install_dir/config/syncrc" ]]; then
+        source $PKG_install_dir/config/syncrc
     else
         echo "error: A configuration file was not identified."
         echo "Try:"
@@ -20,7 +20,7 @@
                 fi
             fi
         }
-        function SYNC_core(){ 
+        function SYNC_src(){ 
             echo "Synchronizing \"$1\" with \"$2\"..."
             if [[ -n $3 ]]; then
                 sudo rsync -av --progress --delete --exclude-from $3 $1 $2
@@ -37,7 +37,7 @@
                         if [[ "$SYNC_create_dir" == "y" ]] || [[ "$SYNC_create_dir" == "yes" ]]; then
                             echo "Creating \"$2\"..."
                             mkdir -p $2
-                            SYNC_core $1 $2 $3
+                            SYNC_src $1 $2 $3
                             break
                         elif [[ "$SYNC_create_dir" == "n" ]] || [[ "$SYNC_create_dir" == "no" ]]; then
                             echo "Target directory was not created."
@@ -50,12 +50,12 @@
         } 
         function SYNC_dir_file(){
             if [[ -d "$1" ]] && [[ -d "$2" ]]; then
-                SYNC_core $1 $2 $3
+                SYNC_src $1 $2 $3
             elif [[ -d "$2" ]] && [[ -f "$1" ]] ||
                  [[ -f "$2" ]] && [[ -d "$1" ]]; then
                 echo "You are trying to sync a dir with a file."
             elif [[ -f "$2" ]] && [[ -f "$1" ]]; then
-                SYNC_core $1 $2 $3
+                SYNC_src $1 $2 $3
             elif [[ -d "$2" ]] || [[ ! -d "$1" ]]; then
                 SYNC_create_dir $1 $2 $3
             fi
@@ -69,7 +69,7 @@
                 echo "configuration mode..."
 ### display help
         elif [[ "$1" == "--help" ]] || [[ "$1" == "-h" ]]; then
-                cat $PKG_install_dir/config/help.txt 
+                cat $PKG_install_dir/config/src/help.txt 
         elif [[ "$1" == "--clean" ]] || [[ "$1" == "-cl" ]]; then
             echo "Cleaning temporary files..."
             find $HOME -type f -iname ".*.*.??????" -delete
@@ -116,14 +116,14 @@
             sync -d
 ### "-t", "-tpl" and "--template" to create a template for the config
         elif [[ "$1" == "-t" ]] || [[ "$1" == "-tpl" ]] || [[ "$1" == "--template" ]]; then
-            if [[ -f "$PKG_install_dir/config/config" ]]; then
+            if [[ -f "$PKG_install_dir/config/syncrc" ]]; then
                 echo "There already exists a configuration file."
                 read -p -r "> " replace_config
                 while :
                 do
                     echo "Want to replace it by a template? (y/n)"
                     if [[ "$replace_config" == "yes" ]] || [[ "$replace_config" == "y" ]]; then
-                        cp $PKG_install_dir/files/config $PKG_install_dir/config/config
+                        cp $PKG_install_dir/files/syncrc.tpl $PKG_install_dir/config/syncrc
                         break
                     elif [[ "$replace_config" == "no" ]] || [[ "$replace_config" == "n" ]]; then
                         Aborting...
@@ -134,7 +134,7 @@
                     fi
                 done
             else
-                cp $PKG_install_dir/files/config $PKG_install_dir/config/config
+                cp $PKG_install_dir/files/syncrc.tpl $PKG_install_dir/config/syncrc
                 echo "A template for the configuration file was created."
                 cd $PKG_install_dir/files
             fi
