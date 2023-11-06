@@ -53,11 +53,13 @@ function sync() {
             SYNC_src $1 $2 $3
         elif [[ -d "$2" ]] && [[ -f "$1" ]] ||
              [[ -f "$2" ]] && [[ -d "$1" ]]; then
-            echo "You are trying to sync a dir with a file."
+            echo "error: You are trying to sync a dir with a file."
         elif [[ -f "$2" ]] && [[ -f "$1" ]]; then
             SYNC_src $1 $2 $3
-        elif [[ -d "$2" ]] || [[ ! -d "$1" ]]; then
+        elif [[ -d "$1" ]] && [[ ! -d "$2" ]]; then
             SYNC_create_dir $1 $2 $3
+        elif [[ ! -d "$1" ]]; then
+            echo "error: Source directory does not exists."
         fi
     }
 # SYNC Function Propertly
@@ -81,7 +83,7 @@ function sync() {
             if [[ "$block" == "files" ]]; then
                 declare -i bound
                 bound=${SYNC_max[$block]}
-                for (( j=1; j <= $bound; j++ )); do
+                for (( j=0; j <= $bound; j++ )); do
                     SYNC_cmd $PKG_install_dir/files/cmd_before/${block}_$j
                     exclude_file=$PKG_install_dir/files/excludes/${block}_$j
                     if [[ -f "$exclude_file" ]]; then
@@ -99,7 +101,7 @@ function sync() {
             if [[ ! "$block" == "files" ]]; then
                 declare -i bound
                 bound=${SYNC_max[$block]}
-                for (( j=1; j <= $bound; j++ )); do
+                for (( j=0; j <= $bound; j++ )); do
                     SYNC_cmd $PKG_install_dir/files/cmd_before/${block}_$j
                     exclude_file=$PKG_install_dir/files/excludes/${block}_$j
                     if [[ -f "$exclude_file" ]]; then
@@ -160,7 +162,7 @@ function sync() {
             for block in ${SYNC_blocks[@]}; do
                 declare -i bound
                 bound=${SYNC_max[$block]}
-                for (( j=1; j <= $bound; j++ )); do
+                for (( j=0; j <= $bound; j++ )); do
                     echo "${SYNC_alias[$block,$j]}: ${SYNC_source[$block,$j]} -> ${SYNC_target[$block,$j]}"
                 done
             done
@@ -170,10 +172,10 @@ function sync() {
     else
 ### sync from blocks
         for block in ${SYNC_blocks[@]}; do
-            if [[ "$1" == "$block" ]]; then
+            if [[ -n "$block" ]] && [[ "$1" == "$block" ]]; then
                 declare -i bound
                 bound=${SYNC_max[$block]}
-                for (( j=1; j <= $bound; j++ )); do
+                for (( j=0; j <= $bound; j++ )); do
                     SYNC_cmd $PKG_install_dir/files/cmd_before/${block}_$j
                     exclude_file=$PKG_install_dir/files/excludes/${block}_$j
                     if [[ -f "$exclude_file" ]]; then
@@ -189,8 +191,8 @@ function sync() {
         for block in ${SYNC_blocks[@]}; do
             declare -i bound
             bound=${SYNC_max[$block]}
-            for (( j=1; j <= $bound; j++ )); do
-                if [[ "$1" == "${SYNC_alias[$block,$j]}" ]]; then
+            for (( j=0; j <= $bound; j++ )); do
+                if [[ -n "${SYNC_alias[$block,$j]}" ]] && [[ "$1" == "${SYNC_alias[$block,$j]}" ]]; then
                     SYNC_cmd $PKG_install_dir/files/cmd_before/${block}_$j
                     exclude_file=$PKG_install_dir/files/excludes/${block}_$j
                     if [[ -f "$exclude_file" ]]; then
